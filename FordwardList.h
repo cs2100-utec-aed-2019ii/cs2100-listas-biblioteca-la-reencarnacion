@@ -2,9 +2,10 @@
 #ifndef UNTITLED14_FORDWARDLIST_H
 #define UNTITLED14_FORDWARDLIST_H
 
+#include "Node.cpp"
 
 template <typename T>
-class ForwardList {
+class ForwardList : protected Node<T> {
     protected:
         Node<T> *head;
     public:
