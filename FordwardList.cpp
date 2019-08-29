@@ -3,6 +3,7 @@
 //
 
 #include "FordwardList.h"
+#include <iostream>
 
 ForwardList::ForwardList(void){}
 ForwardList::~ForwardList(void){}
