@@ -11,8 +11,9 @@ class Node {
         T value;
         Node<T> * next;
     public:
-        Node(void);
-        ~Node(void);
+        Node();
+        Node(T value);
+        ~Node();
 };
 
 
