@@ -10,10 +10,16 @@ ForwardList<T>::ForwardList(void){}
 template <typename T>
 ForwardList<T>::~ForwardList(void){}
 
-template <typename T>
-T& ForwardList<T>::front(void){}
-template <typename T>
-T& ForwardList<T>::back(void){}
+ForwardList::T& front(void){
+    return head->value();
+}
+ForwardList::T& back(void){
+    Node *temp=nullptr;
+    temp=head;
+    while(temp!=nullptr)
+        temp=temp->next();
+    return temp->value;
+}
         
 void ForwardList<T>::push_back(const T& element){
     Node *node = nullptr;
@@ -31,22 +37,21 @@ void ForwardList<T>::push_front(const T& element){
     head = node;
 }
 
-template <typename T>
-Node<T>* ForwardList<T>::pop_back(void){}
-template <typename T>
-Node<T>* ForwardList<T>::pop_front(void){}
-template <typename T>
-T& ForwardList<T>::operator[] (const int&){}
-
-template <typename T>
-bool ForwardList<T>::empty(void){}
-template <typename T>
-unsigned int ForwardList<T>::size(void){}
-template <typename T>
-void ForwardList<T>::clear(void){}
-template <typename T>
-ForwardList<T>& ForwardList<T>::sort(void){}
-template <typename T>
-ForwardList<T>& ForwardList<T>::reverse(void){}
-template <typename T>
-ostream& ForwardList<T>::std::operator << (const ForwardList<T>&, std::ostream&){}
+ForwardList::Node<T>* pop_back(void){}
+ForwardList::Node<T>* pop_front(void){}
+ForwardList::T& operator[] (const int&){}
+        
+ForwardList::bool empty(void){}
+ForwardList::unsigned int size(void){
+    int value=0;
+    head->next();
+    while(head!=nullptr){
+        head=head->nex();
+        value++;
+    }
+    return value;
+}
+ForwardList::void clear(void){}
+ForwardList::ForwardList& sort(void){}
+ForwardList::ForwardList& reverse(void){}
+ForwardList::std::ostream& operator << (const ForwardList&, std::ostream&){}
