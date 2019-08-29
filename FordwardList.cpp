@@ -41,6 +41,7 @@ ForwardList::Node<T>* pop_back(void){}
 ForwardList::Node<T>* pop_front(void){}
 ForwardList::T& operator[] (const int&){}
         
+<<<<<<< HEAD
 ForwardList::bool empty(void){}
 ForwardList::unsigned int size(void){
     int value=0;
@@ -51,6 +52,17 @@ ForwardList::unsigned int size(void){
     }
     return value;
 }
+=======
+ForwardList::bool empty(void){
+    if(head == nullptr){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+ForwardList::unsigned int size(void){}
+>>>>>>> FunctionEmpty
 ForwardList::void clear(void){}
 ForwardList::ForwardList& sort(void){}
 ForwardList::ForwardList& reverse(void){}
