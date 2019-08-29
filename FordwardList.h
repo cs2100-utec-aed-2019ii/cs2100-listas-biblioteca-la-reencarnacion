@@ -18,14 +18,14 @@ class ForwardList {
             Node *final = new Node(element);
             node = head;
             while(node != nullptr){
-                node = node->getNext();
+                node = node->next();
             }
-            node->setNext(final);
+            node->next() = final;
 
         };
         void push_front(const T& element){
             Node *node = new Node(element);
-            node->setNext(head);
+            node->next() = head;
             head = node;
         };
         Node<T>* pop_back(void);
