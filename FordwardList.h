@@ -33,14 +33,7 @@ class ForwardList : protected Node<T> {
         Node<T>* pop_front(void);
         T& operator[] (const int&);
         
-        bool empty(){
-            if(head == nullptr){
-                return true;
-            }
-            else{
-                return false;
-            }
-        };
+        bool empty();
         unsigned int size(void);
         void clear(void);
         ForwardList& sort(void);

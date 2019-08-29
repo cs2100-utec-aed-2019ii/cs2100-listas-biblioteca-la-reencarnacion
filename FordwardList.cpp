@@ -18,7 +18,14 @@ ForwardList::Node<T>* pop_back(void){}
 ForwardList::Node<T>* pop_front(void){}
 ForwardList::T& operator[] (const int&){}
         
-ForwardList::bool empty(void){}
+ForwardList::bool empty(void){
+    if(head == nullptr){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 ForwardList::unsigned int size(void){}
 ForwardList::void clear(void){}
 ForwardList::ForwardList& sort(void){}
