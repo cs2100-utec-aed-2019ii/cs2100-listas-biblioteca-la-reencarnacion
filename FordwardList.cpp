@@ -11,8 +11,21 @@ ForwardList::~ForwardList(void){}
 ForwardList::T& front(void){}
 ForwardList::T& back(void){}
         
-ForwardList::void push_back(const T& element){}
-ForwardList::void push_front(const T& element){}
+void ForwardList<T>::push_back(const T& element){
+    Node *node = nullptr;
+    Node *final = new Node(element);
+    node = head;
+    while(node != nullptr){
+        node = node->next();
+    }
+    node->next() = final;
+}
+template <typename T>
+void ForwardList<T>::push_front(const T& element){
+    Node *node = new Node(element);
+    node->next() = head;
+    head = node;
+}
 
 ForwardList::Node<T>* pop_back(void){}
 ForwardList::Node<T>* pop_front(void){}
