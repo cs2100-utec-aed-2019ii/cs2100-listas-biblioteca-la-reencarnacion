@@ -4,10 +4,17 @@
 
 #include "Node.h"
 
-Node::Node(void){
+template<typename T>
+Node<T>::Node() {
+    value = NULL;
+    next = NULL;
+}
+
+template<typename T>
+Node<T>::Node(T value) : value(value){
+    next = NULL;
 
 }
 
-Node::~Node(void){
-    
-}
+template<typename T>
+Node<T>::~Node() {}
