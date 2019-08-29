@@ -13,8 +13,21 @@ class ForwardList {
         T& front(void);
         T& back(void);
         
-        void push_back(const T& element);
-        void push_front(const T& element);
+        void push_back(const T& element){
+            Node *node = nullptr;
+            Node *final = new Node(element);
+            node = head;
+            while(node != nullptr){
+                node = node->getNext();
+            }
+            node->setNext(final);
+
+        };
+        void push_front(const T& element){
+            Node *node = new Node(element);
+            node->setNext(head);
+            head = node;
+        };
         Node<T>* pop_back(void);
         Node<T>* pop_front(void);
         T& operator[] (const int&);
