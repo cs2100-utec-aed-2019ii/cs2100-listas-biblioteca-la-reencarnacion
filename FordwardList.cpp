@@ -23,7 +23,7 @@ T& ForwardList::back(void){
     return temp->value;
 }
 
-template <typename T>   
+template <typename T>
 void ForwardList<T>::push_back(const T& element){
     Node *node = nullptr;
     Node *final = new Node(element);
@@ -45,7 +45,7 @@ template <typename T>
 Node<T>* ForwardList::pop_front(void){}
 template <typename T>
 T& ForwardList::operator[] (const int&){}
-        
+
 template <typename T>
 bool ForwardList::empty(void){}
 template <typename T>
