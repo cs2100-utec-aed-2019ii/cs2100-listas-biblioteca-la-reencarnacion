@@ -1,4 +1,5 @@
 #include "List.cpp"
+#include "DoubleListNode.cpp"
 template <typename T>
 class DoubleList : public List<T>{
 protected:
