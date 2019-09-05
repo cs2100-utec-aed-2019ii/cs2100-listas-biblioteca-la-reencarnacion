@@ -36,7 +36,7 @@ public:
     Node<T>* pop_front(){}
     T& operator[] (const int&){}
 
-    bool empty(){}
+    bool empty() { return _head == nullptr; }
     unsigned int size(void){
         int value=0;
         head->next();
