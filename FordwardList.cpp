@@ -36,8 +36,8 @@ public:
     Node<T>* pop_front(){}
     T& operator[] (const int&){}
 
-    bool empty() { return _head == nullptr; }
-    unsigned int size(void){
+    bool empty() { return head == nullptr; }
+    unsigned int size(){
         int value=0;
         head->next();
         while(head!=nullptr){
@@ -46,9 +46,9 @@ public:
         }
         return value;
     }
-    void clear(void){}
-    ForwardList& sort(void){}
-    ForwardList& reverse(void){}
+    void clear(){}
+    ForwardList& sort(){}
+    ForwardList& reverse(){}
 
     template<typename __T>
     inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) {}
