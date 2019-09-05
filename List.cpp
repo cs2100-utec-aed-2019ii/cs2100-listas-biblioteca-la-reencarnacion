@@ -54,5 +54,5 @@ public:
     inline friend ForwardList<T>& operator << (ForwardList<__T>&, const T& ) = 0; // push_back de un elemento
 
     template<typename __T>
-    inline friend ForwardList<T>& operator >> (ForwardList<__T>&, const T& ) = 0; = 0; // pop_back de un elemento
+    inline friend ForwardList<T>& operator >> (ForwardList<__T>&, const T& ) = 0; // pop_back de un elemento
 };

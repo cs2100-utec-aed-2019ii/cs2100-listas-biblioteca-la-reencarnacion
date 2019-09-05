@@ -49,13 +49,13 @@ public:
     void clear(void);
     ForwardList& sort(void);
     ForwardList& reverse(void);
-    
-    template<typename __T>
-    inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) = 0; // Imprime la lista con cout
 
     template<typename __T>
-    inline friend ForwardList<T>& operator << (ForwardList<__T>&, const T& ) = 0; // push_back de un elemento
+    inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) {}
 
     template<typename __T>
-    inline friend ForwardList<T>& operator >> (ForwardList<__T>&, const T& ) = 0; = 0; // pop_back de un elemento
+    inline friend ForwardList<T>& operator << (ForwardList<__T>&, const T& ) {}
+
+    template<typename __T>
+    inline friend ForwardList<T>& operator >> (ForwardList<__T>&, const T& ) {}
 };
