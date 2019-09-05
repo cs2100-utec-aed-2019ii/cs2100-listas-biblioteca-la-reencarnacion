@@ -7,4 +7,47 @@ protected:
 public:
     DoubleList(){}
     ~DoubleList(){}​
+    T& front(){
+        return head->value();
+    }
+    T& back(){
+        return tail->value();
+    }
+
+    void push_back(const T& element){
+        Node *node = new Node(element);
+        node->next() = tail;
+        head = node;
+    }
+    void push_front(const T& element){
+        Node *node = new Node(element);
+        node->next() = head;
+        head = node;
+    }
+    Node<T>* pop_back(void);
+    Node<T>* pop_front(void);
+    T& operator[] (const int&);
+
+    bool empty();
+    unsigned int size(void){
+        int value=0;
+        head->next();
+        while(head!=nullptr){
+            head=head->nex();
+            value++;
+        }
+        return value;
+    }
+    void clear(void);
+    ForwardList& sort(void);
+    ForwardList& reverse(void);
+    
+    template<typename __T>
+    inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) = 0; // Imprime la lista con cout
+
+    template<typename __T>
+    inline friend ForwardList<T>& operator << (ForwardList<__T>&, const T& ) = 0; // push_back de un elemento
+
+    template<typename __T>
+    inline friend ForwardList<T>& operator >> (ForwardList<__T>&, const T& ) = 0; = 0; // pop_back de un elemento
 };
