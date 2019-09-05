@@ -47,6 +47,9 @@ public:
     ForwardList<T>& sort() = 0; // ordena la lista
     ForwardList<T>& reverse() = 0; // invierte la lista
 
+    DoubleListNode<T>& sort() = 0; 
+    DoubleListNode<T>& reverse() = 0;
+
     template<typename __T>
     inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) = 0; // Imprime la lista con cout
 

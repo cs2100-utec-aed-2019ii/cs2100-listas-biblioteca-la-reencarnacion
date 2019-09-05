@@ -51,8 +51,8 @@ public:
         return value;
     }
     void clear(void){}
-    ForwardList& sort(void){}
-    ForwardList& reverse(void){}
+    DoubleList& sort(void){}
+    DoubleList& reverse(void){}
     
     template<typename __T>
     inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) {}
