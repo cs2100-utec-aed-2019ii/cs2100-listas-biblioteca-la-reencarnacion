@@ -1,20 +1,11 @@
-//
-// Created by VICTOR on 28/08/2019.
-//
+#include <iostream>
 
-#include "Node.h"
+template <typename T>
+class Node {
+protected:
+    T value;
 
-template<typename T>
-Node<T>::Node() {
-    value = NULL;
-    next = NULL;
-}
-
-template<typename T>
-Node<T>::Node(T value) : value(value){
-    next = NULL;
-
-}
-
-template<typename T>
-Node<T>::~Node() {}
+public:
+    Node(){}
+    ~Node(){}
+};
