@@ -32,11 +32,11 @@ public:
         node->next() = head;
         head = node;
     }
-    Node<T>* pop_back(void);
-    Node<T>* pop_front(void);
-    T& operator[] (const int&);
+    Node<T>* pop_back(void){}
+    Node<T>* pop_front(){}
+    T& operator[] (const int&){}
 
-    bool empty();
+    bool empty(){}
     unsigned int size(void){
         int value=0;
         head->next();
@@ -46,9 +46,9 @@ public:
         }
         return value;
     }
-    void clear(void);
-    ForwardList& sort(void);
-    ForwardList& reverse(void);
+    void clear(void){}
+    ForwardList& sort(void){}
+    ForwardList& reverse(void){}
 
     template<typename __T>
     inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) {}
