@@ -7,7 +7,7 @@ protected:
     ForwardListNode<T> *head;
 public:
     CircularList(){
-        back()->next() = head;
+        back()->next() = *head;
     }
     ~CircularList(){}
 };
