@@ -1,61 +1,50 @@
 #include "Node.cpp"
-#include "ForwardListNode.cpp"
-#include "DoubleListNode.cpp"
-#include <iostream>
-using namespace std;
 
 template <typename T>
-class List : public ForwardListNode<T>, public DoubleListNode<T> {
-protected:
-    Node<T> *head;
-
+class List : public Node<T>{
 public:
-    List(List<T>* lista){
-        head = lista->head;
-    }
+    List(){}
 
-    List(T* lista){}
+    explicit List(List& lista);
 
-    List(Node<T>*){}
+    explicit List(T* lista, int n);
 
-    List(int n){}
+    explicit List(Node<T>* node);
 
-    List(){}​
+    explicit List(int num);
 
     ~List(){}
 
-    T& front() = 0; // Retorna una referencia al primer elemento
-    T& back() = 0; // Retorna una referencia al ultimo elemento
+    virtual T& front() = 0;
+    virtual T& back() = 0;
 
-    void push_back(const T& element) = 0; // Inserta un elemento al final
-    void push_front(const T& element) = 0; // Inserta un elemento al inicio
+    virtual void push_front(const T& data) = 0;
+    virtual void push_back(const T& data) = 0;
 
-    Node<T>* pop_back(void) = 0; // Quita el ultimo elemento de la lista y retorna una referencia
-    Node<T>* pop_front(void) = 0; // Quita el primer elemento de la lista y retorna una referencia
+    virtual Node<T>* pop_back() = 0;
+    virtual Node<T>* pop_front() = 0;
 
-    T& operator[] (const int&); // devuelve el valor de un nodo en una posicion determinada
+    virtual T& operator[] (const unsigned int& num) = 0;
 
-    bool empty(void) = 0; // la lista esta vacia?
-    unsigned int size(void) = 0; // retorna el tamaño de la lista
-    void clear(void) = 0; // Elimina toda la lista
+    virtual bool empty(void) = 0;
+    virtual unsigned int size(void) = 0;
+    virtual void clear() = 0;
 
-    void erase(Node<T>*) = 0; // Elimina un elemento de la lista en base a un puntero
-    void insert(Node<T>*, const T&) = 0; // Inserta un elemento en la lista en base a un puntero
-    void drop(const T&) = 0; // Elimina todos los elementos de la lista que tienen el valor igual al parametro
+    virtual void erase(Node<T>* node) = 0;
+    virtual void insert(Node<T>* node, const T& n) = 0;
+    virtual void drop(const T& value) = 0;
 
+    //virtual List<T>& sort() = 0;
+    //virtual List<T>& reverse() = 0;
 
-    ForwardList<T>& sort() = 0; // ordena la lista
-    ForwardList<T>& reverse() = 0; // invierte la lista
+    //template<typename __T>
+    //inline friend std::ostream& operator << (std::ostream& , const List<__T>& );
 
-    DoubleListNode<T>& sort() = 0; 
-    DoubleListNode<T>& reverse() = 0;
+    //template<typename __T>
+    //inline friend List<T>& operator << (List<__T>&, const T& );
 
-    template<typename __T>
-    inline friend std::ostream& operator << (std::ostream& , const ForwardList<__T>& ) = 0; // Imprime la lista con cout
+    //template<typename __T>
+    //inline friend List<T>& operator >> (List<__T>&, const T& );
 
-    template<typename __T>
-    inline friend ForwardList<T>& operator << (ForwardList<__T>&, const T& ) = 0; // push_back de un elemento
-
-    template<typename __T>
-    inline friend ForwardList<T>& operator >> (ForwardList<__T>&, const T& ) = 0; // pop_back de un elemento
+    virtual void print() = 0;
 };
