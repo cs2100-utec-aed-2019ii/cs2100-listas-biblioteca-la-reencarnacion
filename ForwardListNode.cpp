@@ -1,12 +1,16 @@
-#include "Node.cpp"
-#include <iostream>
-using namespace std;
+#include "List.cpp"
 
 template <typename T>
 class ForwardListNode : public Node<T> {
-protected:
-    Node<T> * next;
 public:
-    ForwardListNode(){}
+    ForwardListNode<T>* next;
+    ForwardListNode(){
+        next = NULL;
+    }
+    ForwardListNode(T data) : Node<T>(data){
+        next = NULL;
+    }
     ~ForwardListNode(){}
+
+
 };
