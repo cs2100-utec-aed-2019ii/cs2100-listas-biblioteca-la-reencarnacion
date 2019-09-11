@@ -1,13 +1,19 @@
-#include "Node.cpp"
-#include <iostream>
-using namespace std;
+#include "List.cpp"
 
 template <typename T>
-class DoubleListNode : public Node<T>{
-protected:
-    Node<T> * next;
-    Node<T> * prev;
+class DoubleListNode : public Node<T> {
 public:
-    DoubleListNode(){}
+    DoubleListNode<T>* next;
+    DoubleListNode<T>* prev;
+    DoubleListNode(){
+        next = NULL;
+        prev = NULL;
+    }
+    DoubleListNode(T data) : Node<T>(data){
+        next = NULL;
+        prev = NULL;
+    }
     ~DoubleListNode(){}
+
+
 };
