@@ -165,6 +165,40 @@ public:
         std::cout << std::endl << std::endl;
     }
 
+    List<T>& sort(){
+        ForwardListNode<T> *node = head;
+        List<T> Lsorted = new ForwardList<T>(); 
+        T array[size()];
+        T min = head->data;
+
+        void swap(int *xp, int *yp)  
+        {  
+            int temp = *xp;  
+            *xp = *yp;  
+            *yp = temp;  
+        }
+
+        for (int i = 0; i < size(); i++)
+        {
+            array[i] = node->data;
+            node = node->next;
+        }
+        for (int k = 0; k < size()-1; k++){     
+            for (int j = 0; j < size()-k-1; j++){  
+                if (array[j] > array[j+1]){  
+                    swap(&array[j], &array[j+1]);
+                }
+            }
+        }
+
+        for (int l = 0; l < size(); l++)
+        {
+            Lsorted->push_back(array[l]);
+        }
+                
+        return Lsorted;
+    }
+
     ForwardListNode<T>* get_head() {
         return head;
     }
