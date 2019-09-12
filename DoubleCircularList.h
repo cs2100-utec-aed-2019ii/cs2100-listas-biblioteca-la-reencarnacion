@@ -175,22 +175,24 @@ public:
         }
     }
 
-    void print() override {
-        DoubleListNode<T> *temp = head;
-        if (!head) {
+    DoubleListNode<T>* get_head() {
+        return head;
+    }
+
+    inline friend std::ostream& operator << (std::ostream& os, const DoubleCircularList<T>& lista){
+        DoubleListNode<T> *temp = lista.head;
+        if (!lista.head) {
             std::cout << "La Lista esta vacia " << std::endl;
         } else {
-            while (temp->next != head){
+            while (temp->next != lista.head) {
                 std::cout << temp->data << " -> ";
+                if (!temp->next) std::cout << "NULL";
                 temp = temp->next;
             }
             std::cout << temp->data;
         }
         std::cout << std::endl << std::endl;
-    }
-
-    DoubleListNode<T>* get_head() {
-        return head;
+        return os;
     }
 
     ~DoubleCircularList(){}

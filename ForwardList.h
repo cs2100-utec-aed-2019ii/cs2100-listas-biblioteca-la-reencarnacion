@@ -156,10 +156,13 @@ public:
         }
     }
 
+    ForwardListNode<T>* get_head() {
+        return head;
+    }
 
-    void print() override {
-        ForwardListNode<T> *temp = head;
-        if (!head) {
+    inline friend std::ostream& operator << (std::ostream& os, const ForwardList<T>& lista){
+        ForwardListNode<T> *temp = lista.head;
+        if (!lista.head) {
             std::cout << "La Lista esta vacia " << std::endl;
         } else {
             while (temp) {
@@ -169,10 +172,7 @@ public:
             }
         }
         std::cout << std::endl << std::endl;
-    }
-
-    ForwardListNode<T>* get_head() {
-        return head;
+        return os;
     }
 
     ~ForwardList(){}

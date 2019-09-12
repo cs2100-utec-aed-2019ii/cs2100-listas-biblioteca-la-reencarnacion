@@ -171,22 +171,24 @@ public:
         }
     }
 
-    void print() override {
-        ForwardListNode<T> *temp = head;
-        if (!head) {
+    ForwardListNode<T>* get_head() {
+        return head;
+    }
+
+    inline friend std::ostream& operator << (std::ostream& os, const CircularList<T>& lista){
+        ForwardListNode<T> *temp = lista.head;
+        if (!lista.head) {
             std::cout << "La Lista esta vacia " << std::endl;
         } else {
-            while (temp->next != head){
+            while (temp->next != lista.head) {
                 std::cout << temp->data << " -> ";
+                if (!temp->next) std::cout << "NULL";
                 temp = temp->next;
             }
             std::cout << temp->data;
         }
         std::cout << std::endl << std::endl;
-    }
-
-    ForwardListNode<T>* get_head() {
-        return head;
+        return os;
     }
 
     ~CircularList(){}

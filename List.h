@@ -44,8 +44,8 @@ public:
     //List<T>& sort();
     //virtual List<T>& reverse() = 0;
 
-    //template<typename __T>
-    //inline friend std::ostream& operator << (std::ostream& , const List<__T>& );
+    template<typename __T>
+    inline friend std::ostream& operator << (std::ostream& os, const List<__T>& lista);
 
     //template<typename __T>
     //inline friend List<T>& operator << (List<__T>&, const T& );
@@ -53,7 +53,6 @@ public:
     //template<typename __T>
     //inline friend List<T>& operator >> (List<__T>&, const T& );
 
-    virtual void print() = 0;
 };
 
 #endif //UNTITLED19_LIST_H
