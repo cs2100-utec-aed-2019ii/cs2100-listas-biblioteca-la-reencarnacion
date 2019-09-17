@@ -17,7 +17,6 @@ public:
 
 protected:
     node_t *head = nullptr;
-    node_t *tail = nullptr;
 public:
 
     friend class ForwardIterator;
@@ -45,7 +44,7 @@ public:
 
     ForwardList(ForwardList& lista): List<T>(){
         if (!lista.empty()) {
-            ForwardListNode<T>* temp = lista.get_head();
+            node_t* temp = lista.get_head();
             while (temp != nullptr) {
                 push_back(**temp);
                 temp = temp->next;
@@ -75,7 +74,7 @@ public:
     }
 
     T& back()override {
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         while (temp->next != nullptr) {
             temp = temp->next;
         }
@@ -83,7 +82,7 @@ public:
     }
 
     void push_front(const T& element) override {
-        ForwardListNode<T> *new_node = new ForwardListNode<T>(element);
+        node_t *new_node = new ForwardListNode<T>(element);
         if (!head) {
             head = new_node;
         } else {
@@ -92,8 +91,8 @@ public:
         }
     }
     void push_back(const T& _value) override {
-        ForwardListNode<T>* new_node = new ForwardListNode<T> (_value);
-        ForwardListNode<T>* temp = head;
+        node_t* new_node = new ForwardListNode<T> (_value);
+        node_t* temp = head;
 
         if (!head) {
             head = new_node;
@@ -106,8 +105,8 @@ public:
     }
 
     Node<T>* pop_back() override {
-        ForwardListNode<T>* temp1 = head;
-        ForwardListNode<T>* temp2;
+        node_t* temp1 = head;
+        node_t* temp2;
         while (temp1->next != nullptr) {
             temp2 = temp1;
             temp1 = temp1->next;
@@ -116,13 +115,13 @@ public:
         return temp1;
     }
     Node<T>* pop_front() override {
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         head = head->next;
         return temp;
     }
 
     T& operator[] (const unsigned int& index) override {
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
@@ -135,7 +134,7 @@ public:
 
     unsigned int size() override {
         int cont = 0;
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         while (temp != NULL) {
             temp = temp->next;
             cont++;
@@ -148,8 +147,8 @@ public:
     }
 
     void erase(Node<T>* node) override {
-        ForwardListNode<T>* temp1 = head->next;
-        ForwardListNode<T>* temp2 = head;
+        node_t* temp1 = head->next;
+        node_t* temp2 = head;
         while (temp1 != node) {
             temp2 = temp1;
             temp1 = temp1->next;
@@ -158,9 +157,9 @@ public:
     }
 
     void insert(Node<T>* node, const T& n) override {
-        ForwardListNode<T>* temp1 = head;
-        ForwardListNode<T>* temp2;
-        ForwardListNode<T>* new_node = new ForwardListNode<T>();
+        node_t* temp1 = head;
+        node_t* temp2;
+        node_t* new_node = new ForwardListNode<T>();
         for(int i = 0; i < n; i++){
             temp1 = temp1->next;
         }
@@ -171,8 +170,8 @@ public:
     }
 
     void drop(const T& value) override {
-        ForwardListNode<T>* temp1 = head->next;
-        ForwardListNode<T>* temp2 = head;
+        node_t* temp1 = head->next;
+        node_t* temp2 = head;
         while (temp1 != NULL) {
             if(**temp1 == value){
                 temp2->next = temp1->next;
@@ -182,7 +181,7 @@ public:
         }
     }
 
-    ForwardListNode<T>* get_head() {
+    node_t* get_head() {
         return head;
     }
 
@@ -212,10 +211,6 @@ public:
         std::cout << std::endl << std::endl;
         return os;
     }
-
-
-
-
 
     ~ForwardList(){}
 };

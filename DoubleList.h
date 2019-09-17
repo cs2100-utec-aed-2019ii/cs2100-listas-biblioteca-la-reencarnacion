@@ -9,21 +9,46 @@
 #include <iostream>
 #include "DoubleListNode.h"
 #include "List.h"
+#include "Iterator.h"
 using namespace std;
 
 template <typename T>
 class DoubleList : public List<T> {
-protected:
-    DoubleListNode<T> *head = NULL;
-    DoubleListNode<T> *tail = NULL;
 public:
+    typedef DoubleListNode<T> node_t;
+protected:
+    node_t *head = nullptr;
+    node_t *tail = nullptr;
+public:
+
+    friend class DoubleIterator;
+    class DoubleIterator : public Iterator<node_t> {
+    public:
+        typedef typename Iterator<node_t>::node_t node_t;
+        typedef typename Iterator<node_t>::value_t value_t;
+
+        DoubleIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
+        ~DoubleIterator(){}
+
+        DoubleIterator& operator++() {
+            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
+            return *this;
+        }
+        DoubleIterator& operator++(int n) {
+            for (int i = 0; i < n; i++){
+                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
+            }
+            return *this;
+        }
+    };
+
     DoubleList(): List<T>() {}
 
     DoubleList(DoubleList& lista): List<T>(){
         if (!lista.empty()) {
-            DoubleListNode<T>* temp = lista.get_head();
-            while (temp != NULL) {
-                push_back(temp->data);
+            node_t* temp = lista.get_head();
+            while (!temp) {
+                push_back(**temp);
                 temp = temp->next;
             }
             tail = temp;
@@ -39,7 +64,7 @@ public:
     DoubleList(Node<T>* node): List<T>(){
         head = new DoubleListNode<T>();
         tail = new DoubleListNode<T>();
-        head->data = node->data;
+        head->value = **node;
         tail = head;
     }
 
@@ -50,16 +75,16 @@ public:
     }
 
     T& front() override {
-        return head->data;
+        return **head;
     }
 
     T& back()override {
-        return tail->data;
+        return **tail;
     }
 
     void push_front(const T& data) override {
-        DoubleListNode<T> *new_node = new DoubleListNode<T>(data);
-        DoubleListNode<T> *temp = head;
+        node_t *new_node = new DoubleListNode<T>(data);
+        node_t *temp = head;
 
         if (!head) {
             head = new_node;
@@ -71,8 +96,8 @@ public:
         }
     }
     void push_back(const T& data) override {
-        DoubleListNode<T> *new_node = new DoubleListNode<T>(data);
-        DoubleListNode<T> *temp = tail;
+        node_t *new_node = new DoubleListNode<T>(data);
+        node_t *temp = tail;
 
         if (!tail) {
             head = new_node;
@@ -85,23 +110,23 @@ public:
     }
 
     Node<T>* pop_back() override {
-        DoubleListNode<T>* temp = tail;
+        node_t* temp = tail;
         tail = tail->prev;
         tail->next = NULL;
         return temp;
     }
     Node<T>* pop_front() override {
-        DoubleListNode<T>* temp = head;
+        node_t* temp = head;
         head = head->next;
         return temp;
     }
 
     T& operator[] (const unsigned int& index) override {
-        DoubleListNode<T>* temp = head;
+        node_t* temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
-        return temp->data;
+        return **temp;
     }
 
     bool empty() override {
@@ -110,7 +135,7 @@ public:
 
     unsigned int size() override {
         int cont = 0;
-        DoubleListNode<T>* temp = head;
+        node_t* temp = head;
         while (temp != NULL) {
             temp = temp->next;
             cont++;
@@ -119,13 +144,13 @@ public:
     }
 
     void clear() override {
-        head = NULL;
-        tail = NULL;
+        head = nullptr;
+        tail = nullptr;
     }
 
     void erase(Node<T>* node) override {
-        DoubleListNode<T>* temp1 = head->next;
-        DoubleListNode<T>* temp2 = head;
+        node_t* temp1 = head->next;
+        node_t* temp2 = head;
         while (temp1 != node) {
             temp2 = temp1;
             temp1 = temp1->next;
@@ -134,23 +159,23 @@ public:
     }
 
     void insert(Node<T>* node, const T& n) override {
-        DoubleListNode<T>* temp1 = head;
-        DoubleListNode<T>* temp2;
+        node_t* temp1 = head;
+        node_t* temp2;
         DoubleListNode<T>* new_node = new DoubleListNode<T>();
         for(int i = 0; i < n; i++){
             temp1 = temp1->next;
         }
         temp2 = temp1->next;
-        new_node->data = node->data;
+        new_node->value = **node;
         temp1->next = new_node;
         new_node->next = temp2;
     }
 
     void drop(const T& value) override {
-        DoubleListNode<T>* temp1 = head->next;
-        DoubleListNode<T>* temp2 = head;
-        while (temp1 != NULL) {
-            if(temp1->data == value){
+        node_t* temp1 = head->next;
+        node_t* temp2 = head;
+        while (temp1 != nullptr) {
+            if(**temp1 == value){
                 temp2->next = temp1->next;
             }
             temp2 = temp1;
@@ -158,14 +183,13 @@ public:
         }
     }
 
-    Node<T>* begin() {
-        return head;
+    DoubleIterator begin() {
+        return DoubleIterator(head);
     }
 
-    Node<T>* end() {
-        return tail;
+    DoubleIterator end() {
+        return DoubleIterator(tail);
     }
-
     DoubleListNode<T>* get_head() {
         return head;
     }
@@ -176,7 +200,7 @@ public:
             std::cout << "La Lista esta vacia " << std::endl;
         } else {
             while (temp) {
-                std::cout << temp->data << " -> ";
+                std::cout << **temp << " -> ";
                 if (!temp->next) std::cout << "NULL";
                 temp = temp->next;
             }

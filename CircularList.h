@@ -12,19 +12,43 @@ using namespace std;
 
 template <typename T>
 class CircularList : public List<T> {
-protected:
-    ForwardListNode<T> *head =  NULL;
 public:
+    typedef ForwardListNode<T> node_t;
+protected:
+    node_t *head = nullptr;
+public:
+
+    friend class CircularIterator;
+    class CircularIterator : public Iterator<node_t> {
+    public:
+        typedef typename Iterator<node_t>::node_t node_t;
+        typedef typename Iterator<node_t>::value_t value_t;
+
+        CircularIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
+        ~CircularIterator(){}
+
+        CircularIterator& operator++() {
+            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
+            return *this;
+        }
+        CircularIterator& operator++(int n) {
+            for (int i = 0; i < n; i++){
+                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
+            }
+            return *this;
+        }
+    };
+
     CircularList(): List<T>() {}
 
     CircularList(CircularList& lista): List<T>(){
         if (!lista.empty()) {
-            ForwardListNode<T>* temp = lista.get_head();
+            node_t* temp = lista.get_head();
             while (temp->next != lista.get_head()) {
-                push_back(temp->data);
+                push_back(**temp);
                 temp = temp->next;
             }
-            push_back(temp->data);
+            push_back(**temp);
         }
     }
 
@@ -36,7 +60,7 @@ public:
 
     CircularList(Node<T>* node): List<T>(){
         head = new ForwardListNode<T>();
-        head->data = node->data;
+        head->value = **node;
         head->next = head;
     }
 
@@ -47,20 +71,20 @@ public:
     }
 
     T& front() override {
-        return head->data;
+        return **head;
     }
 
     T& back()override {
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         while (temp->next != head) {
             temp = temp->next;
         }
-        return temp->data;
+        return **temp;
     }
 
     void push_front(const T& data) override {
-        ForwardListNode<T> *new_node = new ForwardListNode<T>(data);
-        ForwardListNode<T> *temp = head;
+        node_t *new_node = new ForwardListNode<T>(data);
+        node_t *temp = head;
 
         if (!head) {
             head = new_node;
@@ -75,8 +99,8 @@ public:
         }
     }
     void push_back(const T& data) override {
-        ForwardListNode<T> *new_node = new ForwardListNode<T>(data);
-        ForwardListNode<T> *temp = head;
+        node_t *new_node = new ForwardListNode<T>(data);
+        node_t *temp = head;
 
         if (!head) {
             head = new_node;
@@ -91,8 +115,8 @@ public:
     }
 
     Node<T>* pop_back() override {
-        ForwardListNode<T>* temp1 = head;
-        ForwardListNode<T>* temp2;
+        node_t* temp1 = head;
+        node_t* temp2;
         while (temp1->next != head) {
             temp2 = temp1;
             temp1 = temp1->next;
@@ -101,7 +125,7 @@ public:
         return temp1;
     }
     Node<T>* pop_front() override {
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         head = head->next;
         while (temp->next != head){
             temp = temp->next;
@@ -111,11 +135,11 @@ public:
     }
 
     T& operator[] (const unsigned int& index) override {
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
-        return temp->data;
+        return **temp;
     }
 
     bool empty() override {
@@ -124,7 +148,7 @@ public:
 
     unsigned int size() override {
         int cont = 0;
-        ForwardListNode<T>* temp = head;
+        node_t* temp = head;
         while (temp->next != head) {
             temp = temp->next;
             cont++;
@@ -137,8 +161,8 @@ public:
     }
 
     void erase(Node<T>* node) override {
-        ForwardListNode<T>* temp1 = head->next;
-        ForwardListNode<T>* temp2 = head;
+        node_t* temp1 = head->next;
+        node_t* temp2 = head;
         while (temp1 != node) {
             temp2 = temp1;
             temp1 = temp1->next;
@@ -147,23 +171,23 @@ public:
     }
 
     void insert(Node<T>* node, const T& n) override {
-        ForwardListNode<T>* temp1 = head;
-        ForwardListNode<T>* temp2;
-        ForwardListNode<T>* new_node = new ForwardListNode<T>();
+        node_t* temp1 = head;
+        node_t* temp2;
+        node_t* new_node = new ForwardListNode<T>();
         for(int i = 0; i < n; i++){
             temp1 = temp1->next;
         }
         temp2 = temp1->next;
-        new_node->data = node->data;
+        new_node->value = **node;
         temp1->next = new_node;
         new_node->next = temp2;
     }
 
     void drop(const T& value) override {
-        ForwardListNode<T>* temp1 = head->next;
-        ForwardListNode<T>* temp2 = head;
+        node_t* temp1 = head->next;
+        node_t* temp2 = head;
         while (temp1->next != head) {
-            if(temp1->data == value){
+            if(**temp1 == value){
                 temp2->next = temp1->next;
             }
             temp2 = temp1;
@@ -171,16 +195,16 @@ public:
         }
     }
 
-    Node<T>* begin() {
-        return head;
+    CircularIterator begin() {
+        return CircularIterator(head);
     }
 
-    Node<T>* end() {
-        ForwardListNode<T>* temp1 = head;
+    CircularIterator end() {
+        node_t* temp1 = head;
         while (temp1->next != head) {
             temp1 = temp1->next;
         }
-        return temp1;
+        return CircularIterator(temp1);
     }
 
     ForwardListNode<T>* get_head() {
@@ -188,16 +212,16 @@ public:
     }
 
     inline friend std::ostream& operator << (std::ostream& os, const CircularList<T>& lista){
-        ForwardListNode<T> *temp = lista.head;
+        node_t *temp = lista.head;
         if (!lista.head) {
             std::cout << "La Lista esta vacia " << std::endl;
         } else {
             while (temp->next != lista.head) {
-                std::cout << temp->data << " -> ";
+                std::cout << **temp << " -> ";
                 if (!temp->next) std::cout << "NULL";
                 temp = temp->next;
             }
-            std::cout << temp->data;
+            std::cout << **temp;
         }
         std::cout << std::endl << std::endl;
         return os;

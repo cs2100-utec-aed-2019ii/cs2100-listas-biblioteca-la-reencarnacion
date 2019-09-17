@@ -11,16 +11,11 @@
 template <typename T>
 class DoubleListNode : public Node<T> {
 public:
+    typedef typename Node<T>::value_t value_t;
+
     DoubleListNode<T>* next;
     DoubleListNode<T>* prev;
-    DoubleListNode(){
-        next = NULL;
-        prev = NULL;
-    }
-    DoubleListNode(T data) : Node<T>(data){
-        next = NULL;
-        prev = NULL;
-    }
+    DoubleListNode(const T& _value = NULL) : Node<T>(_value), next(nullptr),prev(nullptr){}
     ~DoubleListNode(){}
 
 

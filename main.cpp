@@ -42,13 +42,13 @@ int main() {
     cout << forwardlista1[0] << '\n';
 
 
-    ForwardList<int>::ForwardIterator it = forwardlist.begin();
-    cout << *it << '\n';
+    ForwardList<int>::ForwardIterator it_forward = forwardlist.begin();
+    cout << *it_forward << '\n' << *(++it_forward) << '\n';
 
     forwardlist.clear();
     cout << forwardlist;
 
-/*
+
     cout << "DoubleList: \n\n";
 
     DoubleList<int> doublelist;
@@ -69,11 +69,14 @@ int main() {
     cout << doublelist4;
     DoubleList<int> doublelist5(5);
     cout << doublelist5;
-    cout << doublelist.pop_back()->data << '\n';
-    cout << doublelist.pop_front()->data << '\n';
+    cout << **doublelist.pop_back() << '\n';
+    cout << **doublelist.pop_front() << '\n';
     cout << doublelist.empty() << '\n';
     cout << doublelist.size() << '\n';
     cout << doublelist1[0] << '\n';
+
+    DoubleList<int>::DoubleIterator it_double = doublelist.begin();
+    cout << *it_double << '\n' << *(++it_double) << '\n';
 
     doublelist.clear();
     cout << doublelist;
@@ -98,11 +101,14 @@ int main() {
     cout << circularlist4;
     CircularList<int> circularlist5(5);
     cout << circularlist5;
-    cout << circularlist.pop_back()->data << '\n';
-    cout << circularlist.pop_front()->data << '\n';
+    cout << **circularlist.pop_back() << '\n';
+    cout << **circularlist.pop_front() << '\n';
     cout << circularlist.empty() << '\n';
     cout << circularlist.size() << '\n';
     cout << circularlist1[0] << '\n';
+
+    CircularList<int>::CircularIterator it_circle = circularlist.begin();
+    cout << *it_circle << '\n' << *(++it_circle) << '\n';
 
     circularlist.clear();
     cout << circularlist;
@@ -127,15 +133,19 @@ int main() {
     cout << doublecircularlist4;
     DoubleCircularList<int> doublecircularlist5(5);
     cout << doublecircularlist5;
-    cout << doublecircularlist.pop_back()->data << '\n';
-    cout << doublecircularlist.pop_front()->data << '\n';
+    cout << **doublecircularlist.pop_back() << '\n';
+    cout << **doublecircularlist.pop_front() << '\n';
     cout << doublecircularlist.empty() << '\n';
     cout << doublecircularlist.size() << '\n';
     cout << doublecircularlist1[0] << '\n';
 
+    DoubleCircularList<int>::DoubleCircularIterator it_doublecircle = doublecircularlist.begin();
+    cout << *it_doublecircle << '\n' << *(++it_doublecircle) << '\n';
+
+
     doublecircularlist.clear();
     cout << doublecircularlist;
 
-*/
+
     return 0;
 }
