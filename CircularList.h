@@ -171,6 +171,18 @@ public:
         }
     }
 
+    Node<T>* begin() {
+        return head;
+    }
+
+    Node<T>* end() {
+        ForwardListNode<T>* temp1 = head;
+        while (temp1->next != head) {
+            temp1 = temp1->next;
+        }
+        return temp1;
+    }
+
     ForwardListNode<T>* get_head() {
         return head;
     }

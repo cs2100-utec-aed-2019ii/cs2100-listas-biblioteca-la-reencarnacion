@@ -5,23 +5,49 @@
 #ifndef UNTITLED19_FORWARDLIST_H
 #define UNTITLED19_FORWARDLIST_H
 
-#include <iostream>
 #include "ForwardListNode.h"
 #include "List.h"
+#include "Iterator.h"
 using namespace std;
 
 template <typename T>
 class ForwardList : public List<T> {
-protected:
-    ForwardListNode<T> *head = NULL;
 public:
+    typedef ForwardListNode<T> node_t;
+
+protected:
+    node_t *head = nullptr;
+    node_t *tail = nullptr;
+public:
+
+    friend class ForwardIterator;
+    class ForwardIterator : public Iterator<node_t> {
+    public:
+        typedef typename Iterator<node_t>::node_t node_t;
+        typedef typename Iterator<node_t>::value_t value_t;
+
+        ForwardIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
+        ~ForwardIterator(){}
+
+        ForwardIterator& operator++() {
+            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
+            return *this;
+        }
+        ForwardIterator& operator++(int n) {
+            for (int i = 0; i < n; i++){
+                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
+            }
+            return *this;
+        }
+    };
+
     ForwardList(): List<T>() {}
 
     ForwardList(ForwardList& lista): List<T>(){
         if (!lista.empty()) {
             ForwardListNode<T>* temp = lista.get_head();
-            while (temp != NULL) {
-                push_back(temp->data);
+            while (temp != nullptr) {
+                push_back(**temp);
                 temp = temp->next;
             }
         }
@@ -35,7 +61,7 @@ public:
 
     ForwardList(Node<T>* node): List<T>(){
         head = new ForwardListNode<T>();
-        head->data = node->data;
+        head->value = **node;
     }
 
     ForwardList(int num): List<T>(){
@@ -45,19 +71,19 @@ public:
     }
 
     T& front() override {
-        return head->data;
+        return **head;
     }
 
     T& back()override {
         ForwardListNode<T>* temp = head;
-        while (temp->next != NULL) {
+        while (temp->next != nullptr) {
             temp = temp->next;
         }
-        return temp->data;
+        return **head;
     }
 
-    void push_front(const T& data) override {
-        ForwardListNode<T> *new_node = new ForwardListNode<T>(data);
+    void push_front(const T& element) override {
+        ForwardListNode<T> *new_node = new ForwardListNode<T>(element);
         if (!head) {
             head = new_node;
         } else {
@@ -65,14 +91,14 @@ public:
             head = new_node;
         }
     }
-    void push_back(const T& data) override {
-        ForwardListNode<T>* new_node = new ForwardListNode<T> (data);
+    void push_back(const T& _value) override {
+        ForwardListNode<T>* new_node = new ForwardListNode<T> (_value);
         ForwardListNode<T>* temp = head;
 
         if (!head) {
             head = new_node;
         } else {
-            while (temp->next != NULL) {
+            while (temp->next != nullptr) {
                 temp = temp->next;
             }
             temp->next = new_node;
@@ -82,11 +108,11 @@ public:
     Node<T>* pop_back() override {
         ForwardListNode<T>* temp1 = head;
         ForwardListNode<T>* temp2;
-        while (temp1->next != NULL) {
+        while (temp1->next != nullptr) {
             temp2 = temp1;
             temp1 = temp1->next;
         }
-        temp2->next = NULL;
+        temp2->next = nullptr;
         return temp1;
     }
     Node<T>* pop_front() override {
@@ -100,7 +126,7 @@ public:
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
-        return temp->data;
+        return **temp;
     }
 
     bool empty() override {
@@ -139,7 +165,7 @@ public:
             temp1 = temp1->next;
         }
         temp2 = temp1->next;
-        new_node->data = node->data;
+        **new_node = **node;
         temp1->next = new_node;
         new_node->next = temp2;
     }
@@ -148,7 +174,7 @@ public:
         ForwardListNode<T>* temp1 = head->next;
         ForwardListNode<T>* temp2 = head;
         while (temp1 != NULL) {
-            if(temp1->data == value){
+            if(**temp1 == value){
                 temp2->next = temp1->next;
             }
             temp2 = temp1;
@@ -160,13 +186,25 @@ public:
         return head;
     }
 
+    ForwardIterator begin() {
+        return ForwardIterator(head);
+    }
+
+    ForwardIterator end() {
+        ForwardListNode<T>* temp1 = head;
+        while (temp1->next != NULL) {
+            temp1 = temp1->next;
+        }
+        return ForwardIterator(temp1);
+    }
+
     inline friend std::ostream& operator << (std::ostream& os, const ForwardList<T>& lista){
         ForwardListNode<T> *temp = lista.head;
         if (!lista.head) {
             std::cout << "La Lista esta vacia " << std::endl;
         } else {
             while (temp) {
-                std::cout << temp->data << " -> ";
+                std::cout << **temp << " -> ";
                 if (!temp->next) std::cout << "NULL";
                 temp = temp->next;
             }
@@ -174,6 +212,10 @@ public:
         std::cout << std::endl << std::endl;
         return os;
     }
+
+
+
+
 
     ~ForwardList(){}
 };

@@ -158,6 +158,14 @@ public:
         }
     }
 
+    Node<T>* begin() {
+        return head;
+    }
+
+    Node<T>* end() {
+        return tail;
+    }
+
     DoubleListNode<T>* get_head() {
         return head;
     }

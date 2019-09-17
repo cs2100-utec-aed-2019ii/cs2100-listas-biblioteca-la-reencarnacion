@@ -10,13 +10,16 @@
 template <typename T>
 class Node {
 public:
-    T data;
+    typedef T value_t;
 
-    Node() {
-        data = NULL;
-    }
-    Node(T data) : data(data){}
+    value_t value;
+
+    Node(value_t _value) : value(_value){}
     ~Node(){}
+
+    T& operator * () {
+        return value;
+    }
 };
 
 #endif //UNTITLED19_NODE_H

@@ -8,9 +8,11 @@
 #include "Node.h"
 
 template <typename T>
-class List : public Node<T>{
+class List{
+protected:
+    Node<T>* head;
 public:
-    List(){}
+    List() : head(nullptr){}
 
     explicit List(List& lista);
 
@@ -40,6 +42,7 @@ public:
     virtual void erase(Node<T>* node) = 0;
     virtual void insert(Node<T>* node, const T& n) = 0;
     virtual void drop(const T& value) = 0;
+
 
     //List<T>& sort();
     //virtual List<T>& reverse() = 0;
