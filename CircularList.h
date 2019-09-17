@@ -16,6 +16,7 @@ public:
     typedef ForwardListNode<T> node_t;
 protected:
     node_t *head = nullptr;
+    node_t *tail = nullptr;
 public:
 
     friend class CircularIterator;
@@ -27,16 +28,6 @@ public:
         CircularIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
         ~CircularIterator(){}
 
-        CircularIterator& operator++() {
-            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            return *this;
-        }
-        CircularIterator& operator++(int n) {
-            for (int i = 0; i < n; i++){
-                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            }
-            return *this;
-        }
     };
 
     CircularList(): List<T>() {}
@@ -75,11 +66,7 @@ public:
     }
 
     T& back()override {
-        node_t* temp = head;
-        while (temp->next != head) {
-            temp = temp->next;
-        }
-        return **temp;
+        return **tail;
     }
 
     void push_front(const T& data) override {
@@ -88,7 +75,8 @@ public:
 
         if (!head) {
             head = new_node;
-            head->next = head;
+            tail = head;
+            head->next = tail;
         } else {
             new_node->next = head;
             while (temp->next != head){
@@ -98,29 +86,33 @@ public:
             temp->next = head;
         }
     }
+
     void push_back(const T& data) override {
         node_t *new_node = new ForwardListNode<T>(data);
         node_t *temp = head;
 
         if (!head) {
             head = new_node;
-            head->next = head;
+            tail = head;
+            head->next = tail;
         } else {
-            while (temp->next != head) {
+            while (temp != tail) {
                 temp = temp->next;
             }
             temp->next = new_node;
             new_node->next = head;
+            tail = new_node;
         }
     }
 
     Node<T>* pop_back() override {
         node_t* temp1 = head;
         node_t* temp2;
-        while (temp1->next != head) {
+        while (temp1 != tail) {
             temp2 = temp1;
             temp1 = temp1->next;
         }
+        tail = temp2;
         temp2->next = head;
         return temp1;
     }
@@ -143,21 +135,21 @@ public:
     }
 
     bool empty() override {
-        return head == NULL;
+        return head == nullptr;
     }
 
     unsigned int size() override {
         int cont = 0;
         node_t* temp = head;
-        while (temp->next != head) {
+        while (temp != tail) {
             temp = temp->next;
             cont++;
         }
-        return cont;
+        return cont+1;
     }
 
     void clear() override {
-        head = NULL;
+        head = nullptr;
     }
 
     void erase(Node<T>* node) override {

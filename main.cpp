@@ -10,7 +10,7 @@ void llenar_int(List<int>* lista,int max,int n){
     srand(time(NULL));
     for(int i = 0; i < n; i++){
         int data = rand()%(max+1);
-        lista->push_front(data);
+        *lista << data;
     }
 }
 
@@ -22,9 +22,7 @@ int main() {
     llenar_int(&forwardlist,50,15);
     cout << forwardlist;
     ForwardList<int> forwardlista1;
-    forwardlista1.push_back(10);
-    forwardlista1.push_back(20);
-    forwardlista1.push_back(30);
+    forwardlista1 << 20 << 30 >> 10;
     cout << forwardlista1;
     ForwardList<int> forwardlista2(forwardlista1);
     cout << forwardlista2;
@@ -39,7 +37,7 @@ int main() {
     cout << **forwardlist.pop_front() << '\n';
     cout << forwardlist.empty() << '\n';
     cout << forwardlist.size() << '\n';
-    cout << forwardlista1[0] << '\n';
+    cout << forwardlist[0] << '\n';
 
 
     ForwardList<int>::ForwardIterator it_forward = forwardlist.begin();
@@ -56,9 +54,7 @@ int main() {
     llenar_int(&doublelist,50,15);
     cout << doublelist;
     DoubleList<int> doublelist1;
-    doublelist1.push_back(10);
-    doublelist1.push_back(20);
-    doublelist1.push_back(30);
+    doublelist1 << 20 << 30 >> 10;
     cout << doublelist1;
     DoubleList<int> doublelist2(doublelist1);
     cout << doublelist2;
@@ -73,7 +69,7 @@ int main() {
     cout << **doublelist.pop_front() << '\n';
     cout << doublelist.empty() << '\n';
     cout << doublelist.size() << '\n';
-    cout << doublelist1[0] << '\n';
+    cout << doublelist[0] << '\n';
 
     DoubleList<int>::DoubleIterator it_double = doublelist.begin();
     cout << *it_double << '\n' << *(++it_double) << '\n';
@@ -88,9 +84,7 @@ int main() {
     llenar_int(&circularlist,50,15);
     cout << circularlist;
     CircularList<int> circularlist1;
-    circularlist1.push_back(10);
-    circularlist1.push_back(20);
-    circularlist1.push_back(30);
+    circularlist1 << 20 << 30 >> 10;
     cout << circularlist1;
     CircularList<int> circularlist2(circularlist1);
     cout << circularlist2;
@@ -105,7 +99,7 @@ int main() {
     cout << **circularlist.pop_front() << '\n';
     cout << circularlist.empty() << '\n';
     cout << circularlist.size() << '\n';
-    cout << circularlist1[0] << '\n';
+    cout << circularlist[0] << '\n';
 
     CircularList<int>::CircularIterator it_circle = circularlist.begin();
     cout << *it_circle << '\n' << *(++it_circle) << '\n';
@@ -120,9 +114,7 @@ int main() {
     llenar_int(&doublecircularlist,50,15);
     cout << doublecircularlist;
     DoubleCircularList<int> doublecircularlist1;
-    doublecircularlist1.push_back(10);
-    doublecircularlist1.push_back(20);
-    doublecircularlist1.push_back(30);
+    doublecircularlist1 << 20 << 30 >> 10;
     cout << doublecircularlist1;
     DoubleCircularList<int> doublecircularlist2(doublecircularlist1);
     cout << doublecircularlist2;
@@ -137,7 +129,7 @@ int main() {
     cout << **doublecircularlist.pop_front() << '\n';
     cout << doublecircularlist.empty() << '\n';
     cout << doublecircularlist.size() << '\n';
-    cout << doublecircularlist1[0] << '\n';
+    cout << doublecircularlist[0] << '\n';
 
     DoubleCircularList<int>::DoubleCircularIterator it_doublecircle = doublecircularlist.begin();
     cout << *it_doublecircle << '\n' << *(++it_doublecircle) << '\n';
@@ -146,6 +138,16 @@ int main() {
     doublecircularlist.clear();
     cout << doublecircularlist;
 
+    DoubleCircularList<int>::DoubleCircularIterator it_doublecircle2 = doublecircularlist2.begin();
+    cout << *it_doublecircle2;
+
+    bool n0 = it_doublecircle == it_doublecircle2;
+    bool n1 = it_doublecircle != it_doublecircle2;
+    bool n2 = it_doublecircle <= it_doublecircle2;
+    bool n3 = it_doublecircle >= it_doublecircle2;
+    bool n4 = it_doublecircle < it_doublecircle2;
+    bool n5 = it_doublecircle > it_doublecircle2;
+    cout << '\n' << n0 << '\n' << n1 << '\n' << n2 << '\n' << n3 << '\n' << n4 << '\n' << n5 << '\n';
 
     return 0;
 }

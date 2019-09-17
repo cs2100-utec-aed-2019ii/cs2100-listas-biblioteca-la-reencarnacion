@@ -17,6 +17,7 @@ public:
 
 protected:
     node_t *head = nullptr;
+    node_t *tail = nullptr;
 public:
 
     friend class ForwardIterator;
@@ -28,16 +29,6 @@ public:
         ForwardIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
         ~ForwardIterator(){}
 
-        ForwardIterator& operator++() {
-            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            return *this;
-        }
-        ForwardIterator& operator++(int n) {
-            for (int i = 0; i < n; i++){
-                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            }
-            return *this;
-        }
     };
 
     ForwardList(): List<T>() {}
@@ -74,44 +65,39 @@ public:
     }
 
     T& back()override {
-        node_t* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        return **head;
+        return **tail;
     }
 
     void push_front(const T& element) override {
         node_t *new_node = new ForwardListNode<T>(element);
         if (!head) {
             head = new_node;
+            tail = head;
         } else {
             new_node->next = head;
             head = new_node;
         }
     }
-    void push_back(const T& _value) override {
-        node_t* new_node = new ForwardListNode<T> (_value);
-        node_t* temp = head;
-
+    void push_back(const T& element) override {
+        node_t *new_node = new ForwardListNode<T>(element);
         if (!head) {
             head = new_node;
+            tail = head;
         } else {
-            while (temp->next != nullptr) {
-                temp = temp->next;
-            }
-            temp->next = new_node;
+            tail->next = new_node;
+            tail = new_node;
         }
     }
 
     Node<T>* pop_back() override {
         node_t* temp1 = head;
         node_t* temp2;
-        while (temp1->next != nullptr) {
+        while (temp1 != tail) {
             temp2 = temp1;
             temp1 = temp1->next;
         }
         temp2->next = nullptr;
+        tail = temp2;
         return temp1;
     }
     Node<T>* pop_front() override {
@@ -129,13 +115,13 @@ public:
     }
 
     bool empty() override {
-        return head == NULL;
+        return head == nullptr;
     }
 
     unsigned int size() override {
         int cont = 0;
         node_t* temp = head;
-        while (temp != NULL) {
+        while (temp) {
             temp = temp->next;
             cont++;
         }
@@ -143,7 +129,7 @@ public:
     }
 
     void clear() override {
-        head = NULL;
+        head = nullptr;
     }
 
     void erase(Node<T>* node) override {
@@ -172,7 +158,7 @@ public:
     void drop(const T& value) override {
         node_t* temp1 = head->next;
         node_t* temp2 = head;
-        while (temp1 != NULL) {
+        while (temp1) {
             if(**temp1 == value){
                 temp2->next = temp1->next;
             }
@@ -191,24 +177,24 @@ public:
 
     ForwardIterator end() {
         ForwardListNode<T>* temp1 = head;
-        while (temp1->next != NULL) {
+        while (temp1->next) {
             temp1 = temp1->next;
         }
         return ForwardIterator(temp1);
     }
 
-    inline friend std::ostream& operator << (std::ostream& os, const ForwardList<T>& lista){
+    inline friend ostream& operator << (ostream& os, const ForwardList<T>& lista){
         ForwardListNode<T> *temp = lista.head;
         if (!lista.head) {
-            std::cout << "La Lista esta vacia " << std::endl;
+            cout << "La Lista esta vacia " << endl;
         } else {
             while (temp) {
-                std::cout << **temp << " -> ";
-                if (!temp->next) std::cout << "NULL";
+                cout << **temp << " -> ";
+                if (!temp->next) cout << "NULL";
                 temp = temp->next;
             }
         }
-        std::cout << std::endl << std::endl;
+        cout << endl << endl;
         return os;
     }
 

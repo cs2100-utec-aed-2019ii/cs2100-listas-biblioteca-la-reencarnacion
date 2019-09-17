@@ -28,16 +28,6 @@ public:
         DoubleCircularIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
         ~DoubleCircularIterator(){}
 
-        DoubleCircularIterator& operator++() {
-            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            return *this;
-        }
-        DoubleCircularIterator& operator++(int n) {
-            for (int i = 0; i < n; i++){
-                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            }
-            return *this;
-        }
     };
 
     DoubleCircularList(): List<T>() {}

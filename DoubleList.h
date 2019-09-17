@@ -29,17 +29,6 @@ public:
 
         DoubleIterator(node_t* _pointer = nullptr) : Iterator<node_t>(_pointer){}
         ~DoubleIterator(){}
-
-        DoubleIterator& operator++() {
-            Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            return *this;
-        }
-        DoubleIterator& operator++(int n) {
-            for (int i = 0; i < n; i++){
-                Iterator<node_t>::pointer = Iterator<node_t>::pointer->next;
-            }
-            return *this;
-        }
     };
 
     DoubleList(): List<T>() {}
@@ -47,7 +36,7 @@ public:
     DoubleList(DoubleList& lista): List<T>(){
         if (!lista.empty()) {
             node_t* temp = lista.get_head();
-            while (!temp) {
+            while (temp) {
                 push_back(**temp);
                 temp = temp->next;
             }
@@ -130,13 +119,13 @@ public:
     }
 
     bool empty() override {
-        return head == NULL;
+        return head == nullptr;
     }
 
     unsigned int size() override {
         int cont = 0;
         node_t* temp = head;
-        while (temp != NULL) {
+        while (temp) {
             temp = temp->next;
             cont++;
         }

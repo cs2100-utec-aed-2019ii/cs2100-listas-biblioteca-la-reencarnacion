@@ -10,9 +10,10 @@
 template <typename T>
 class List{
 protected:
-    Node<T>* head;
+    Node<T>* head = nullptr;
+    Node<T>* tail = nullptr;
 public:
-    List() : head(nullptr){}
+    List(){}
 
     explicit List(List& lista);
 
@@ -27,8 +28,8 @@ public:
     virtual T& front() = 0;
     virtual T& back() = 0;
 
-    virtual void push_front(const T& data) = 0;
-    virtual void push_back(const T& data) = 0;
+    virtual void push_front(const T& element) = 0;
+    virtual void push_back(const T& element) = 0;
 
     virtual Node<T>* pop_back() = 0;
     virtual Node<T>* pop_front() = 0;
@@ -47,15 +48,17 @@ public:
     //List<T>& sort();
     //virtual List<T>& reverse() = 0;
 
-    template<typename __T>
-    inline friend std::ostream& operator << (std::ostream& os, const List<__T>& lista);
+    inline friend std::ostream& operator << (std::ostream& os, const List<T>& lista);
 
-    //template<typename __T>
-    //inline friend List<T>& operator << (List<__T>&, const T& );
+    List& operator<< (const T& _value){
+        this->push_back(_value);
+        return *this;
+    }
 
-    //template<typename __T>
-    //inline friend List<T>& operator >> (List<__T>&, const T& );
-
+    List& operator>> (const T& _value){
+        this->push_front(_value);
+        return *this;
+    }
 };
 
 #endif //UNTITLED19_LIST_H
