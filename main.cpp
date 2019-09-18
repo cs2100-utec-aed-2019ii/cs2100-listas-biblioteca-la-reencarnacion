@@ -45,6 +45,9 @@ int main() {
     ForwardList<int>::ForwardIterator it_forward = forwardlist.begin();
     cout << *it_forward << '\n' << *(++it_forward) << '\n';
 
+    ForwardList<int> forwardlista6 = forwardlist.sort();
+    cout << forwardlista6;
+
     forwardlist.clear();
     cout << forwardlist;
 /*
