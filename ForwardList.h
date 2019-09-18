@@ -118,6 +118,31 @@ public:
         return head == nullptr;
     }
 
+    ForwardList& sort(){
+        Iterator it = begin();
+        Iterator _it = begin();
+        ForwardList Flist = new ForwardList();
+        for (int i = 0; i < size(); ++i) {
+            Flist.push_back(*it)
+            ++it;
+        }
+        it = Flist.begin();
+        _it = Flist.begin();
+        ++_it;
+        auto aux = 0;
+        while(it != end()){
+            if(*_it < *it){
+                aux = it.pointer->value;
+                it.pointer->value = _it.pointer->value;
+                _it.pointer->value = aux;
+            }
+            ++it;
+            ++_it;
+        }
+        return Flist;
+
+    };
+
     unsigned int size() override {
         int cont = 0;
         Iterator it = begin();
