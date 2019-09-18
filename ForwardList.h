@@ -166,6 +166,15 @@ public:
             temp1 = temp1->next;
         }
     }
+    ForwardList<T>& reverse(){
+        ForwardList<T> temp;
+        Iterator it = begin();
+        while (it != end()){
+            temp.push_front(*it);
+            ++it;     
+        }
+        return temp;
+    };
 
     node_t* get_head() {
         return head;
