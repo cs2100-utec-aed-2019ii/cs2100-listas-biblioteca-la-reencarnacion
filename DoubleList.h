@@ -182,18 +182,19 @@ public:
         return head;
     }
 
-    inline friend std::ostream& operator << (std::ostream& os, const DoubleList<T>& lista){
-        DoubleListNode<T> *temp = lista.head;
+    template <typename _T>
+    inline friend ostream& operator << (ostream& os,  DoubleList<_T>& lista){
+        typename DoubleList<_T>::DoubleIterator it = lista.begin();
         if (!lista.head) {
-            std::cout << "La Lista esta vacia " << std::endl;
+            os << "La Lista esta vacia " << endl;
         } else {
-            while (temp) {
-                std::cout << **temp << " -> ";
-                if (!temp->next) std::cout << "NULL";
-                temp = temp->next;
+            while (it != lista.end()) {
+                os << *it << " -> ";
+                ++it;
             }
+            os << *it;
         }
-        std::cout << std::endl << std::endl;
+        os << endl << endl;
         return os;
     }
 

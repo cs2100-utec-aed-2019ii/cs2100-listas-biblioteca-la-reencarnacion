@@ -17,7 +17,6 @@ public:
 
 protected:
     node_t *head = nullptr;
-    node_t *tail = nullptr;
 public:
 
     friend class ForwardIterator;
@@ -65,14 +64,17 @@ public:
     }
 
     T& back()override {
-        return **tail;
+        Iterator it = begin();
+        while (it != end()) {
+            ++it;
+        }
+        return *it;
     }
 
     void push_front(const T& element) override {
         node_t *new_node = new ForwardListNode<T>(element);
         if (!head) {
             head = new_node;
-            tail = head;
         } else {
             new_node->next = head;
             head = new_node;
@@ -82,22 +84,23 @@ public:
         node_t *new_node = new ForwardListNode<T>(element);
         if (!head) {
             head = new_node;
-            tail = head;
         } else {
-            tail->next = new_node;
-            tail = new_node;
+            node_t* temp1 = head;
+            while (temp1->next != nullptr) {
+                temp1 = temp1->next;
+            }
+            temp1->next = new_node;
         }
     }
 
     Node<T>* pop_back() override {
         node_t* temp1 = head;
         node_t* temp2;
-        while (temp1 != tail) {
+        while (temp1->next != nullptr) {
             temp2 = temp1;
             temp1 = temp1->next;
         }
         temp2->next = nullptr;
-        tail = temp2;
         return temp1;
     }
     Node<T>* pop_front() override {
@@ -154,11 +157,16 @@ public:
     }
 
     void clear() override {
+        node_t* temp1 = head;
+        while (temp1->next != nullptr) {
+            temp1;
+            temp1 = temp1->next;
+        }
         head = nullptr;
     }
 
     void erase(Node<T>* node) override {
-        node_t* temp1 = head->next;
+        node_t* temp1 = head;
         node_t* temp2 = head;
         while (temp1 != node) {
             temp2 = temp1;
@@ -181,7 +189,7 @@ public:
     }
 
     void drop(const T& value) override {
-        node_t* temp1 = head->next;
+        node_t* temp1 = head;
         node_t* temp2 = head;
         while (temp1) {
             if(**temp1 == value){
@@ -201,7 +209,11 @@ public:
     }
 
     ForwardIterator end() {
-        return ForwardIterator(tail);
+        node_t* temp1 = head;
+        while (temp1->next != nullptr) {
+            temp1 = temp1->next;
+        }
+        return ForwardIterator(temp1);
     }
 
     template <typename _T>
@@ -210,10 +222,11 @@ public:
         if (!lista.head) {
             os << "La Lista esta vacia " << endl;
         } else {
-            while (it != nullptr) {
+            while (it != lista.end()) {
                 os << *it << " -> ";
                 ++it;
             }
+            os << *it;
         }
         os << endl << endl;
         return os;

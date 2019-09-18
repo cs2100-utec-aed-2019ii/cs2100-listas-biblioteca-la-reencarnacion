@@ -33,7 +33,9 @@ int main() {
     cout << forwardlista4;
     ForwardList<int> forwardlista5(5);
     cout << forwardlista5;
+    cout << forwardlist.back() << '\n';
     cout << **forwardlist.pop_back() << '\n';
+    cout << forwardlist.front() << '\n';
     cout << **forwardlist.pop_front() << '\n';
     cout << forwardlist.empty() << '\n';
     cout << forwardlist.size() << '\n';
@@ -45,7 +47,7 @@ int main() {
 
     forwardlist.clear();
     cout << forwardlist;
-
+/*
 
     cout << "DoubleList: \n\n";
 
@@ -148,6 +150,6 @@ int main() {
     bool n4 = it_doublecircle < it_doublecircle2;
     bool n5 = it_doublecircle > it_doublecircle2;
     cout << '\n' << n0 << '\n' << n1 << '\n' << n2 << '\n' << n3 << '\n' << n4 << '\n' << n5 << '\n';
-
+*/
     return 0;
 }
