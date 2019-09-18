@@ -179,18 +179,18 @@ public:
         return ForwardIterator(tail);
     }
 
-    inline friend ostream& operator << (ostream& os, const ForwardList<T>& lista){
-        ForwardListNode<T> *temp = lista.head;
+    template <typename _T>
+    inline friend ostream& operator << (ostream& os,  ForwardList<_T>& lista){
+        typename ForwardList<_T>::ForwardIterator it = lista.begin();
         if (!lista.head) {
-            cout << "La Lista esta vacia " << endl;
+            os << "La Lista esta vacia " << endl;
         } else {
-            while (temp) {
-                cout << **temp << " -> ";
-                if (!temp->next) cout << "NULL";
-                temp = temp->next;
+            while (it != nullptr) {
+                os << *it << " -> ";
+                ++it;
             }
         }
-        cout << endl << endl;
+        os << endl << endl;
         return os;
     }
 

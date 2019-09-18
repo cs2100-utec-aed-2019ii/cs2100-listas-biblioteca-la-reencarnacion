@@ -31,22 +31,22 @@ public:
         return **pointer;
     }
     bool operator == (const Iterator& it) const {
-        return **pointer == **it.pointer;
+        return pointer == it.pointer;
     }
     bool operator != (const Iterator& it) const {
-        return **pointer != **it.pointer;
+        return pointer != it.pointer;
     }
     bool operator <= (const Iterator& it) const {
-        return **pointer <= **it.pointer;
+        return pointer <= it.pointer;
     }
     bool operator >= (const Iterator& it) const {
-        return **pointer >= **it.pointer;
+        return pointer >= it.pointer;
     }
     bool operator < (const Iterator& it) const {
-        return **pointer < **it.pointer;
+        return pointer < it.pointer;
     }
     bool operator > (const Iterator& it) const {
-        return **pointer > **it.pointer;
+        return pointer > it.pointer;
     }
 
     void operator = (const value_t& _value) const {
