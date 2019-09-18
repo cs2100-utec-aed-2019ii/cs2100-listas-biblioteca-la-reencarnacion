@@ -163,6 +163,15 @@ public:
         return Flist;
 
     }
+    ForwardList<T>& reverse(){
+        ForwardList<T> temp;
+        Iterator it = begin();
+        while (it != end()){
+            temp.push_front(*it);
+            ++it;     
+        }
+        return temp;
+    };
 
     void erase(Node<T>* node) override {
         node_t* temp1 = head;
