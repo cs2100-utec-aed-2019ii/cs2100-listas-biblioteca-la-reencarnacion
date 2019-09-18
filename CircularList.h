@@ -16,7 +16,6 @@ public:
     typedef ForwardListNode<T> node_t;
 protected:
     node_t *head = nullptr;
-    node_t *tail = nullptr;
 public:
 
     friend class CircularIterator;
@@ -66,7 +65,11 @@ public:
     }
 
     T& back()override {
-        return **tail;
+        node_t* temp1 = head;
+        while (temp1->next != head) {
+            temp1 = temp1->next;
+        }
+        return **temp1;
     }
 
     void push_front(const T& data) override {
@@ -75,8 +78,7 @@ public:
 
         if (!head) {
             head = new_node;
-            tail = head;
-            head->next = tail;
+            head->next = head;
         } else {
             new_node->next = head;
             while (temp->next != head){
@@ -93,26 +95,23 @@ public:
 
         if (!head) {
             head = new_node;
-            tail = head;
-            head->next = tail;
+            head->next = head;
         } else {
-            while (temp != tail) {
+            while (temp->next != head) {
                 temp = temp->next;
             }
             temp->next = new_node;
             new_node->next = head;
-            tail = new_node;
         }
     }
 
     Node<T>* pop_back() override {
         node_t* temp1 = head;
         node_t* temp2;
-        while (temp1 != tail) {
+        while (temp1->next != head) {
             temp2 = temp1;
             temp1 = temp1->next;
         }
-        tail = temp2;
         temp2->next = head;
         return temp1;
     }
@@ -141,11 +140,11 @@ public:
     unsigned int size() override {
         int cont = 0;
         node_t* temp = head;
-        while (temp != tail) {
+        while (temp->next != head) {
             temp = temp->next;
             cont++;
         }
-        return cont+1;
+        return cont;
     }
 
     void clear() override {
@@ -203,19 +202,19 @@ public:
         return head;
     }
 
-    inline friend std::ostream& operator << (std::ostream& os, const CircularList<T>& lista){
-        node_t *temp = lista.head;
+    template <typename _T>
+    inline friend ostream& operator << (ostream& os,  CircularList<_T>& lista){
+        typename CircularList<_T>::CircularIterator it = lista.begin();
         if (!lista.head) {
-            std::cout << "La Lista esta vacia " << std::endl;
+            os << "La Lista esta vacia " << endl;
         } else {
-            while (temp->next != lista.head) {
-                std::cout << **temp << " -> ";
-                if (!temp->next) std::cout << "NULL";
-                temp = temp->next;
+            while (it != lista.end()) {
+                os << *it << " -> ";
+                ++it;
             }
-            std::cout << **temp;
+            os << *it;
         }
-        std::cout << std::endl << std::endl;
+        os << endl << endl;
         return os;
     }
 
