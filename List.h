@@ -15,7 +15,7 @@ protected:
 public:
     List(){}
 
-    explicit List(List& lista);
+    explicit List(List& lista){}
 
     explicit List(T* lista, int n);
 
@@ -48,7 +48,7 @@ public:
     //List<T>& sort();
     //virtual List<T>& reverse() = 0;
 
-    inline friend std::ostream& operator << (std::ostream& os, const List<T>& lista);
+    inline friend std::ostream& operator << (std::ostream& out, const List<T>& lista);
 
     List& operator<< (const T& _value){
         this->push_back(_value);

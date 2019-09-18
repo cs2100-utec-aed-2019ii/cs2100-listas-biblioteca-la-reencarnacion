@@ -40,7 +40,6 @@ public:
                 push_back(**temp);
                 temp = temp->next;
             }
-            tail = temp;
         }
     }
 

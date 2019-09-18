@@ -35,11 +35,11 @@ public:
 
     ForwardList(ForwardList& lista): List<T>(){
         if (!lista.empty()) {
-            node_t* temp = lista.get_head();
-            while (temp != nullptr) {
-                push_back(**temp);
-                temp = temp->next;
+            ForwardIterator it;
+            for (it = lista.begin();it != lista.end();++it) {
+                push_back(*it);
             }
+            push_back(*it);
         }
     }
 
@@ -107,11 +107,11 @@ public:
     }
 
     T& operator[] (const unsigned int& index) override {
-        node_t* temp = head;
+        Iterator it = begin();
         for (int i = 0; i < index; i++) {
-            temp = temp->next;
+            ++it;
         }
-        return **temp;
+        return *it;
     }
 
     bool empty() override {
@@ -120,12 +120,12 @@ public:
 
     unsigned int size() override {
         int cont = 0;
-        node_t* temp = head;
-        while (temp) {
-            temp = temp->next;
+        Iterator it = begin();
+        while (it != end()) {
+            ++it;
             cont++;
         }
-        return cont;
+        return cont+1;
     }
 
     void clear() override {
@@ -176,11 +176,7 @@ public:
     }
 
     ForwardIterator end() {
-        ForwardListNode<T>* temp1 = head;
-        while (temp1->next) {
-            temp1 = temp1->next;
-        }
-        return ForwardIterator(temp1);
+        return ForwardIterator(tail);
     }
 
     inline friend ostream& operator << (ostream& os, const ForwardList<T>& lista){

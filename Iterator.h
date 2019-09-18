@@ -11,15 +11,15 @@ public:
     typedef T node_t;
     typedef typename node_t::value_t value_t;
 protected:
-    node_t* pointer;
+    node_t* pointer = nullptr;
 public:
     Iterator(node_t* _pointer) : pointer(_pointer){}
     ~Iterator(){}
-    Iterator& operator++() {
+    Iterator& operator ++ () {
         pointer = pointer->next;
         return *this;
     }
-    Iterator& operator++(int n) {
+    Iterator& operator ++ (int n) {
         for (int i = 0; i < n; i++){
             pointer = pointer->next;
         }
@@ -49,7 +49,9 @@ public:
         return **pointer > **it.pointer;
     }
 
-    //virtual void operator = (const V& value) const = 0;//¿Que es lo que hace?
+    void operator = (const value_t& _value) const {
+        pointer->value = _value;
+    }
 };
 
 #endif //UNTITLED19_ITERATOR_H
